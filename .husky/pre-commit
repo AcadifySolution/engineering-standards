@@ -1,0 +1,1 @@
+npx markdownlint "**/*.md" --ignore node_modules

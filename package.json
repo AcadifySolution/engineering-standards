@@ -1,0 +1,23 @@
+{
+  "name": "engineering-standards",
+  "version": "1.0.0",
+  "description": "Acadify Solution's Engineering Standards, branch-protection models, pull-request requirements, automated style enforcement, and release notes checklists.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "markdownlint \"**/*.md\" --ignore node_modules",
+    "lint:fix": "markdownlint \"**/*.md\" --ignore node_modules --fix",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "engineering-standards",
+    "linting",
+    "git-hooks",
+    "husky"
+  ],
+  "author": "Acadify Solution <contact@acadifysolution.com> (https://acadifysolution.com)",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "husky": "^9.0.11",
+    "markdownlint-cli": "^0.41.0"
+  }
+}
