@@ -4,13 +4,17 @@
   "description": "Acadify Solution's Engineering Standards, branch-protection models, pull-request requirements, automated style enforcement, and release notes checklists.",
   "main": "index.js",
   "scripts": {
-    "lint": "markdownlint \"**/*.md\" --ignore node_modules",
-    "lint:fix": "markdownlint \"**/*.md\" --ignore node_modules --fix",
+    "lint": "markdownlint \"**/*.md\" --ignore node_modules && npm run format:check",
+    "lint:fix": "markdownlint \"**/*.md\" --ignore node_modules --fix && npm run format",
+    "format": "prettier --write \"**/*.md\" \"**/*.json\"",
+    "format:check": "prettier --check \"**/*.md\" \"**/*.json\"",
     "prepare": "husky"
   },
   "keywords": [
     "engineering-standards",
     "linting",
+    "formatting",
+    "prettier",
     "git-hooks",
     "husky"
   ],
@@ -18,6 +22,7 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "husky": "^9.0.11",
-    "markdownlint-cli": "^0.41.0"
+    "markdownlint-cli": "^0.41.0",
+    "prettier": "^3.3.2"
   }
 }

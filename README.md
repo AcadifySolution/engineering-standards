@@ -1,85 +1,90 @@
 # Acadify Solution — Engineering Standards & Practices
 
-Welcome to the **Acadify Solution Engineering Standards** repository. This centralized resource defines our internal engineering policies, code quality guidelines, and compliance requirements.
+This repository serves as the definitive reference for engineering standards, development workflows, and compliance baselines at Acadify Solution.
 
-As a distributed team of senior developers building high-reliability AI systems, secure cloud architectures, and scalable SaaS platforms, we hold ourselves to rigorous development standards. Adhering to these guidelines ensures our code is secure, scalable, maintainable, and aligned with industry compliance standards (including HIPAA and SOC2).
+As a distributed team of senior developers building high-reliability AI products, scalable SaaS platforms, and secure cloud infrastructure, we hold our codebases to rigorous production-grade standards. Consistent execution of these practices ensures security, maintainability, and alignment with critical HIPAA and SOC2 compliance targets.
 
 ---
 
 ## 🗺️ Standards Navigation
 
-Our development practices are structured into four main areas:
+Our core engineering guidelines are divided into four primary domains:
 
-| Standards Document | Key Topics Covered |
-| :--- | :--- |
-| 🌿 **[Branching & Git Guidelines](standards/branching-git.md)** | Branching models (Trunk-Based / Git Flow), Branch Protection policies, and Conventional Commits. |
-| 🛡️ **[Coding & Security Practices](standards/coding-practices.md)** | AI/LLM safety, PII Masking, HIPAA/SOC2 design rules, SaaS patterns, and static analysis benchmarks. |
-| 👥 **[Peer Reviews & PR Guidelines](standards/peer-reviews.md)** | PR criteria, Author self-audits, Reviewer responsibilities, and PR templates. |
-| 🚀 **[Release & Versioning](standards/release-management.md)** | Semantic Versioning (SemVer), release checklists, changelog management, and hotfix paths. |
+| Standard Guide                                                      | Core Subjects                                                                 |
+| :------------------------------------------------------------------ | :---------------------------------------------------------------------------- |
+| 🌿 **[Branching & Git Guidelines](standards/branching-git.md)**     | Branching topologies, PR size constraints, and Conventional Commits.          |
+| 🛡️ **[Coding & Security Practices](standards/coding-practices.md)** | PII masking filters, HIPAA/SOC2 design rules, and framework architectures.    |
+| 👥 **[Peer Reviews & PR Guidelines](standards/peer-reviews.md)**    | Self-review benchmarks, reviewer responsibilities, and PR templates.          |
+| 🚀 **[Release & Versioning](standards/release-management.md)**      | SemVer 2.0.0 compliance, deployment vs. release separation, and hotfix paths. |
 
 ---
 
-## 🛠️ Automated Quality & Tooling
+## 🛠️ Onboarding & Local Setup
 
-To minimize manual overhead and maintain a consistent baseline, we enforce automatic linting and code styles across all repositories via git hooks and CI checkups.
+Every repository at Acadify Solution enforces formatting and linting rules locally using Git hooks and in CI workflows using GitHub Actions.
 
-### Local Environment Setup
+### Development Environment Setup
 
-When you clone any Acadify repository (including this standards repo), follow these steps to initialize the automated quality tools:
+To configure your local environment for automated style enforcement:
 
-#### Prerequisites
+#### 1. Prerequisites
 
-* Node.js (LTS version 20+)
-* pnpm / npm / yarn (We recommend `npm` or `pnpm` depending on repository configurations)
+Ensure you have the following installed on your development machine:
 
-#### Step 1: Install Dependencies
+- Node.js (LTS v20+)
+- npm (pre-packaged with Node.js) or `pnpm`
 
-This project uses DevDependencies to lint documentation files using `markdownlint-cli` and manage git hooks using `husky`.
+#### 2. Install Development Dependencies
+
+Clone this repository and install the development packages (Prettier for formatting, Markdownlint for structure checking, and Husky for hook automation):
 
 ```bash
 npm install
 ```
 
-#### Step 2: Enable Git Hooks (Husky)
+#### 3. IDE Integration (Recommended)
 
-Husky will automatically configure hook directories based on the `"prepare"` script in `package.json`. If it does not run, you can initialize it manually:
+This repository contains a `.editorconfig` file that automatically configures text formatting rules (spaces vs. tabs, indentation depth, line endings) for your editor. We recommend installing the corresponding plugin if your IDE does not support EditorConfig natively:
+
+- **VS Code:** Install the `EditorConfig for VS Code` and `Prettier - Code formatter` extensions.
+- **JetBrains (IntelliJ/WebStorm):** EditorConfig support is enabled out-of-the-box.
+
+---
+
+## 🤖 Validation Pipelines
+
+We run three validation layers to prevent formatting discrepancies or broken documentation structures from entering production:
+
+### 1. Editor Formatting
+
+Rules configured in `.editorconfig` and `.prettierrc` format your files automatically on save.
+
+### 2. Pre-Commit Verification (Husky)
+
+A local pre-commit hook runs `npm run lint` on staged files before allowing commits:
 
 ```bash
-npx husky
-```
-
-### Formatting and Linting Checks
-
-#### Manual Check
-
-You can run the markdown lint checks on demand:
-
-```bash
-# Run lint check
+# Run syntax and formatting verification manually
 npm run lint
 
-# Auto-fix fixable markdown format issues
+# Auto-correct formatting and fixable markdown structure issues
 npm run lint:fix
 ```
 
-#### Commit-time Hooks
+### 3. Continuous Integration (GitHub Actions)
 
-Husky prevents malformed documentation commits by automatically running `markdownlint` before your commit goes through. If linting fails, resolve the errors indicated in the command-line output and re-run your `git commit` command.
-
-#### Continuous Integration (CI)
-
-A GitHub Actions workflow (`.github/workflows/lint.yml`) runs on every pull request targeting `main`. PRs cannot be merged if the linting checks fail.
+The workflow in `.github/workflows/lint.yml` executes formatting and syntax checks on all pull requests targeting the `main` branch. PR merges are blocked until all checks pass.
 
 ---
 
-## 🤝 Contribution Guidelines
+## 📝 Amending the Standards
 
-We treat our standards as living documentation. If you spot a gap, outdated practice, or have an optimization proposal:
+We maintain our standards as living documentation. To propose updates or refinements:
 
-1. Create a branch named `refactor/standards-update-<topic>`.
-2. Propose the standard updates and verify they comply with the markdown linting rules.
-3. Open a Pull Request and assign it to the engineering leads for review.
+1. Review the [Security Policy](SECURITY.md) to ensure no internal security procedures are leaked.
+2. Open an issue using the [Standards Amendment Template](.github/ISSUE_TEMPLATE/standards_proposal.md).
+3. Following consensus, create a branch named `refactor/standards-update-<topic>` and submit a Pull Request.
 
 ---
 
-© 2026 Acadify Solution. All rights reserved. Distributed engineering partner.
+© 2026 Acadify Solution. All rights reserved. Globally distributed team.

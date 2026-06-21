@@ -1,0 +1,14 @@
+# CODEOWNERS
+# Automatically assigns reviewers and enforces approval rules for pull requests.
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for all files in the repository
+*               @acadify-solution/engineering-leads
+
+# Owners for core standards documents
+/standards/     @acadify-solution/engineering-leads @acadify-solution/security-leads
+
+# Owners for CI/CD workflows and repository configs
+/.github/       @acadify-solution/devops-leads
+/.husky/        @acadify-solution/devops-leads
+package.json    @acadify-solution/devops-leads

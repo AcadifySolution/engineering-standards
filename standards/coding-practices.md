@@ -1,90 +1,99 @@
 # Coding & Security Practices
 
-All Acadify Solution developers must write code that is secure, compliant, and optimized for high performance. This document outlines our engineering standards for AI/LLM development, compliance-by-design (HIPAA/SOC2), database operations, and SaaS architecture.
+All Acadify Solution developers must write code that is secure, compliant, and optimized for high-performance workloads. This document details our engineering policies for AI/LLM integration, HIPAA/SOC2 compliance, database hygiene, API error design, and testing protocols.
 
 ---
 
 ## 🤖 AI & LLM Infrastructure Standards
 
-When building and maintaining LLM-based pipelines, agents, and RAG systems, developers must design for unpredictability, latency, and compliance.
+When building and maintaining LLM-based agents, evaluation runs, and RAG pipelines, developers must design for latency, rate limits, and compliance.
 
-### 1. Personally Identifiable Information (PII) Masking
+### 1. Zero-Trust PII Masking Interceptors
 
-To maintain absolute compliance, **no raw PII must ever be sent to third-party LLM providers** (e.g., OpenAI, Anthropic, Gemini) or captured in application logs.
+**No Protected Health Information (PHI) or Personally Identifiable Information (PII) must ever reach external model provider gateways** (e.g., OpenAI, Anthropic, Gemini).
 
-* **Custom Interceptors:** All outbound model requests must route through our PII masking middleware.
-* **Sanitization Rules:** Detect and mask Name, SSN, Credit Card numbers, Phone numbers, Email addresses, and medical/financial identifier patterns.
-* **De-identification:** Use hashing or placeholder tokens (e.g., `[CUSTOMER_NAME_1]`) so context is preserved for the model, and then reverse-map the masked fields locally when processing the output.
+- **Outbound Gateways:** All outbound prompt payloads must route through our PII masking interceptor library.
+- **Tokenization & Re-identification:** Use local regex engines (e.g., Presidio or custom regex) to extract SSNs, emails, credit cards, dates of birth, and names. Replace these tokens with placeholder identifiers (e.g., `{{DOB_1}}`, `{{NAME_2}}`) before dispatching to external APIs.
+- **Reverse Mapping:** Retain the mapping in-memory or in an encrypted Redis cache. Rehydrate the masked details into the response locally after receiving the model's output.
 
-### 2. Prompt Sanitization & Defensive Input Control
+### 2. Defensive Prompt Design
 
-* **Prompt Injection Mitigation:** Treat user prompts as untrusted input. Validate and sanitize input strings to strip system prompt override attempts.
-* **Structured Formatting:** Use structured templates (like system/user message splits) rather than raw string concatenation.
-* **Strict JSON Out:** Enforce structured outputs (e.g., JSON schema validation or tool calling) to ensure deterministic parsing.
+- **Prompt Injection Safeguards:** Sanitize user input text to prevent jailbreaks or prompt injections. Never embed raw, unsanitized user strings directly into system prompts. Use structured templates (like message lists or function parameters) to isolate user inputs from model instructions.
+- **Deterministic Output Parsing:** Configure APIs to enforce structured formats (JSON Schema or tool/function calling) to prevent parser failures. Always implement recovery parsing logic when raw LLM strings are returned.
 
-### 3. Reliability & Gateway Resilience
+### 3. Rate-Limiting & Gateway Failovers
 
-* **Timeouts and Retries:** Set standard timeouts (max 15s) for API calls. Implement exponential backoff with jitter to handle rate limits (`HTTP 429`).
-* **Fallback Strategies:** Provide fallback models (e.g., failing over to a lighter model) or user-facing error limits if the main model gateway is unavailable.
-* **Observability:** Log latency, token count, cache hit rates, and model cost. Do not log the actual inputs or outputs if they contain customer workloads.
+- **Adaptive Backoff:** Model providers enforce rate limits (`HTTP 429`). Use exponential backoff with jitter to retry transient rate-limit errors.
+- **Fallback Fallback Routing:** If a primary model (e.g., GPT-4o) fails or times out, implement an automatic fallback path to a local or alternative model (e.g., Gemini Flash) or return a clean, structured validation failure to the user rather than an application crash.
 
 ---
 
 ## 🛡️ Security & Compliance (HIPAA / SOC2)
 
-As an engineering partner building clinical and financial infrastructure, zero-trust is our default operating standard.
+As a development partner handling clinical and financial workloads, security controls must be designed into every component.
 
-### 1. HIPAA Compliance & Patient Privacy
+### 1. Data Encryption & Storage
 
-* **Data at Rest:** All databases, caches (Redis), and disk storage containing Protected Health Information (PHI) must use AES-256 encryption.
-* **Data in Transit:** Force TLS 1.3 for all internal and external communication. Disable deprecated SSL and TLS protocols (TLS 1.0, 1.1).
-* **Row-Level Security (RLS):** Enable RLS on Postgres tables storing tenant or patient records to prevent cross-tenant leakages.
+- **Encryption at Rest:** Ensure AES-256 encryption is active on all data stores (PostgreSQL, Redis, Elasticsearch).
+- **Encryption in Transit:** Force TLS 1.3 for external endpoints and internal service-to-service communication. Disable TLS 1.0, 1.1, and 1.2 across all load balancers.
+- **Row-Level Security (RLS):** Enable RLS on Postgres databases. All queries must resolve tenant context dynamically to prevent cross-tenant data leakages.
 
-### 2. SOC2 Least-Privilege & Auditability
+### 2. Audit Trails & Logs
 
-* **Structured Audit Logs:** Every security-sensitive action (authentication, privilege escalation, export of records, or encryption key rotations) must generate an immutable log event including:
-  * Timestamp (UTC)
-  * Actor ID (User or Service Account)
-  * Action description
-  * IP address and agent telemetry
-* **Credential Management:** Never hardcode secrets, API keys, or database credentials. Use AWS Secrets Manager, GCP Secret Manager, or HashiCorp Vault. Pull secrets at runtime using environment variables.
+- **Immutable Security Logs:** Log all authentication attempts, authorization failures, encryption key rotations, and direct reads of sensitive medical/financial data.
+- **Sanitized Application Logs:** Verify that application logs do not capture API keys, tokens, session cookies, passwords, or customer PII. Run daily automated log scans to identify and flag leaks.
 
 ---
 
-## 💻 SaaS Architecture & API Design
+## 💻 Database & Connection Lifecycle
 
-### 1. Framework-Specific Standards
+Improper database connection pooling and dangling transactions are major sources of staging and production degradations.
 
-* **FastAPI (Python):**
-  * Enforce request/response serialization using **Pydantic v2** schemas.
-  * Utilize dependency injection (`Depends`) for sharing database sessions, authentication context, and service states.
-  * Avoid using global state pools.
-* **Go (Golang):**
-  * Explicitly handle all errors; do not ignore errors with `_`.
-  * Pass `context.Context` through all service functions and database queries to support timeout propagation and request cancellation.
-  * Avoid package-level variables; use constructor injection (`NewService(...)`).
+### 1. Connection Pool Sizing
 
-### 2. Error Handling & Response Design
+- Do not set database connection pools to arbitrarily high limits. Limit connections to `(2 * CPU cores) + disk speed factor` to prevent query queue serialization.
+- Configure connection timeouts: Set a connection acquisition timeout (max 5s) and query runtime timeouts (max 15s) to prevent slow queries from locking database worker threads.
 
-* **Structured JSON Errors:** API errors must return a standard schema:
+### 2. Transaction Safety & Timeouts
 
-    ```json
-    {
-      "success": false,
-      "error": {
-        "code": "ERR_PII_SANCTITY_VIOLATION",
-        "message": "Outbound prompt contains unmasked identifiers.",
-        "details": {
-          "field": "prompt.user_input"
-        }
-      }
+- Keep database transactions as short as possible. Never make outbound API calls (e.g., to LLM providers or payment gateways) from inside a database transaction block. Doing so keeps database locks open, leading to starvation.
+- **Idle Transaction Timeouts:** Configure `idle_in_transaction_session_timeout = 10000` (10 seconds) on Postgres instances. This automatically kills connections that are left hanging in uncommitted transaction blocks.
+
+---
+
+## ⚙️ API Error Design & Consistency
+
+### 1. Error Code Hierarchy
+
+API endpoints must return standard HTTP status codes accompanied by a structured JSON error body. Do not return raw exceptions (e.g., database stack traces) to client interfaces.
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "ERR_PII_DETECTION_TRIGGERED",
+    "message": "Prompt execution aborted. Outbound payload contains unmasked personal identifiers.",
+    "details": {
+      "detected_fields": ["phone_number"],
+      "action_required": "Please filter inputs or register masking overrides."
     }
-    ```
+  }
+}
+```
 
-* **No Raw Stack Traces:** Never bubble raw database exceptions (e.g., `pgx` or `sqlalchemy` stack traces) to the client. Wrap exceptions in localized error contexts at the service boundary.
+---
 
-### 3. Testing Benchmarks
+## 🧪 Testing and Preventing Test Flakiness
 
-* **Unit Tests:** Must test all logic boundaries using mock interfaces (such as PyTorch mocks for data loaders or mock DB connections).
-* **E2E Testing:** Playwright suites must run against staging targets to verify key user flows (login, billing, LLM interaction).
-* **Coverage Baseline:** A minimum of **80% code coverage** is required on all new pull requests.
+### 1. Playwright E2E Best Practices
+
+Flaky integration tests waste developer time and degrade CI confidence.
+
+- **No Arbitrary Sleeps:** Never use `page.waitForTimeout(3000)` or similar hardcoded delays. They slow down CI runs and fail under load.
+- **State-driven Waiting:** Always wait for specific DOM elements, network events, or URL changes (e.g., `page.locator('button').click()`, followed by `expect(page.locator('.toast-success')).toBeVisible()`).
+- **Mock Network Latency:** When testing loading states or edge cases, mock network responses instead of slowing down actual backends.
+
+### 2. Unit Test Mocking Boundaries
+
+- Unit tests must remain fast and execute locally without dependencies on databases or external networks.
+- Use libraries like `pytest-mock` or Go interfaces to mock API callouts, file system interactions, and model loader states. Mock all external HTTP calls using tools like `responses` or `nock`.
