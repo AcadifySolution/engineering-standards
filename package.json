@@ -1,13 +1,13 @@
 {
   "name": "engineering-standards",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "description": "Acadify Solution's versioned engineering handbook for Git, coding, security, peer review, and release practices.",
   "scripts": {
-    "lint": "markdownlint \\"**/*.md\" --ignore node_modules && npm run format:check",
-    "lint:fix": "markdownlint \\"**/*.md\" --ignore node_modules --fix && npm run format",
-    "format": "prettier --write \\"**/*.md\" \\"**/*.json\"",
-    "format:check": "prettier --check \\"**/*.md\" \\"**/*.json\"",
+    "lint": "markdownlint \"**/*.md\" --ignore node_modules && npm run format:check",
+    "lint:fix": "markdownlint \"**/*.md\" --ignore node_modules --fix && npm run format",
+    "format": "prettier --write \"**/*.md\" \"**/*.json\"",
+    "format:check": "prettier --check \"**/*.md\" \"**/*.json\"",
     "prepare": "husky"
   },
   "keywords": [
