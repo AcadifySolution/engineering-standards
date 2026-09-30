@@ -6,6 +6,8 @@ This handbook is a maintained engineering baseline, not a static document. Rules
 
 ## Standard Lifecycle
 
+The standard lifecycle is:
+
 **Propose → Review → Adopt → Communicate → Measure → Refine**
 
 ### Propose

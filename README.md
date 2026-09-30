@@ -72,6 +72,8 @@ Use [GOVERNANCE.md](GOVERNANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md) to evo
 
 ## Quality Gates
 
+The quality-gate chain is:
+
 **Editor → Pre-commit → CI → Human Review → Release Verification**
 
 EditorConfig and Prettier keep formatting consistent. Husky validates local changes. GitHub Actions validates pull requests. CODEOWNERS defines review ownership. Templates capture evidence and migration impact.
@@ -90,7 +92,7 @@ Security issues must **not** be reported through public issues. See [SECURITY.md
 
 This is a **living engineering standard**. Rules may evolve as the organization's architecture, product scope, and operational requirements change.
 
-**Current handbook version:** 1.1.0  
+**Current handbook version:** 1.1.1  
 **Last reviewed:** 2026-09-30
 
 © 2026 Acadify Solution
