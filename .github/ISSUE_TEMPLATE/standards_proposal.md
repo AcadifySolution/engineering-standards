@@ -1,30 +1,30 @@
 ---
-name: 📝 Standards Amendment / Proposal
-about: Propose a change, addition, or refinement to Acadify's engineering standards.
-title: 'proposal: [Short description of standard change]'
-labels: standards, discussion
-assignees: ''
+name: Standards proposal
+about: Propose a new engineering rule or change to an existing standard
+title: "standards: "
+labels: documentation
 ---
 
-## Proposed Amendment
+## Problem
 
-Which document and section does this affect?
+<!-- What recurring problem are we trying to solve? -->
 
-- [ ] README.md
-- [ ] standards/branching-git.md
-- [ ] standards/coding-practices.md
-- [ ] standards/peer-reviews.md
-- [ ] standards/release-management.md
-- [ ] New standards file (describe below)
+## Proposed Standard
 
-## Detailed Description
+<!-- State the rule clearly and concretely. -->
 
-Please detail the modification or new standard policy you are proposing.
+## Rationale
 
-## Rationale & Industry Alignment
+<!-- Why does this improve engineering outcomes? -->
 
-Why should Acadify adopt this standard? How does this protect our systems or enhance our developer velocity? Reference any standard patterns, compliance baselines (SOC2, HIPAA), or industry articles if applicable.
+## Scope
 
-## Mock Content / Draft Text
+<!-- Which teams, repositories, or systems are affected? -->
 
-Provide a draft of the proposed markdown text as you would like it to appear in the documents.
+## Migration / Adoption
+
+<!-- What needs to change, and how will adoption be measured? -->
+
+## Alternatives Considered
+
+<!-- What other approaches were considered? -->

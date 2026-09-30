@@ -1,25 +1,32 @@
 {
   "name": "engineering-standards",
-  "version": "1.0.0",
-  "description": "Acadify Solution's Engineering Standards, branch-protection models, pull-request requirements, automated style enforcement, and release notes checklists.",
-  "main": "index.js",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Acadify Solution's versioned engineering handbook for Git, coding, security, peer review, and release practices.",
   "scripts": {
-    "lint": "markdownlint \"**/*.md\" --ignore node_modules && npm run format:check",
-    "lint:fix": "markdownlint \"**/*.md\" --ignore node_modules --fix && npm run format",
-    "format": "prettier --write \"**/*.md\" \"**/*.json\"",
-    "format:check": "prettier --check \"**/*.md\" \"**/*.json\"",
+    "lint": "markdownlint \\"**/*.md\" --ignore node_modules && npm run format:check",
+    "lint:fix": "markdownlint \\"**/*.md\" --ignore node_modules --fix && npm run format",
+    "format": "prettier --write \\"**/*.md\" \\"**/*.json\"",
+    "format:check": "prettier --check \\"**/*.md\" \\"**/*.json\"",
     "prepare": "husky"
   },
   "keywords": [
     "engineering-standards",
-    "linting",
-    "formatting",
-    "prettier",
-    "git-hooks",
-    "husky"
+    "engineering-handbook",
+    "developer-experience",
+    "secure-software-development",
+    "code-review",
+    "release-management",
+    "github",
+    "husky",
+    "markdownlint",
+    "prettier"
   ],
   "author": "Acadify Solution <contact@acadifysolution.com> (https://acadifysolution.com)",
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
     "husky": "^9.0.11",
     "markdownlint-cli": "^0.41.0",

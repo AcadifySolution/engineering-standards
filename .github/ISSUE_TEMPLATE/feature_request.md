@@ -1,27 +1,22 @@
 ---
-name: 🚀 Feature Request
-about: Propose a new capability or architectural enhancement.
-title: 'feat: [Short description]'
-labels: enhancement, discussion
-assignees: ''
+name: Engineering improvement
+about: Suggest an improvement to the engineering handbook or tooling
+title: "enhancement: "
+labels: enhancement
 ---
 
-## Problem Statement
+## Improvement
 
-Is your feature request related to a problem? Please describe. (e.g., "It's difficult to verify model gateways because...")
+<!-- What should be improved? -->
 
-## Proposed Solution
+## Why?
 
-A clear description of what you want to happen. Explain the proposed code modifications or architecture changes.
+<!-- What problem does this solve? -->
 
-## Technical Justification
+## Proposed Approach
 
-How does this change align with Acadify's high-reliability AI, SaaS, or infrastructure goals? Note any performance or security implications.
+<!-- Describe the intended change. -->
 
-## Alternatives Considered
+## Success Criteria
 
-Describe any alternative solutions or workarounds you've considered.
-
-## Implementation Details (Optional)
-
-If you have mock code snippets, API interfaces, or database design draft ideas, share them here.
+<!-- How will we know the change is useful? -->

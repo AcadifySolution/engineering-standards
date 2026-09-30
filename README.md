@@ -1,90 +1,96 @@
-# Acadify Solution — Engineering Standards & Practices
+# Acadify Solution — Engineering Standards
 
-This repository serves as the definitive reference for engineering standards, development workflows, and compliance baselines at Acadify Solution.
+> A practical, versioned engineering handbook for building secure, maintainable, production-ready software at Acadify Solution.
 
-As a distributed team of senior developers building high-reliability AI products, scalable SaaS platforms, and secure cloud infrastructure, we hold our codebases to rigorous production-grade standards. Consistent execution of these practices ensures security, maintainability, and alignment with critical HIPAA and SOC2 compliance targets.
+[![Quality Checks](https://github.com/AcadifySolution/engineering-standards/actions/workflows/lint.yml/badge.svg)](https://github.com/AcadifySolution/engineering-standards/actions/workflows/lint.yml)
+[![Handbook](https://img.shields.io/badge/handbook-living-0f172a.svg)](standards/)
+[![Node](https://img.shields.io/badge/node-%3E%3D20-339933.svg)](package.json)
 
----
+This repository is the shared engineering baseline for Acadify Solution. It turns engineering expectations into explicit, reviewable practices covering Git, coding, security, peer review, releases, and operational quality.
 
-## 🗺️ Standards Navigation
+**The goal is simple: make good engineering the default.**
 
-Our core engineering guidelines are divided into four primary domains:
+## At a Glance
 
-| Standard Guide                                                      | Core Subjects                                                                 |
-| :------------------------------------------------------------------ | :---------------------------------------------------------------------------- |
-| 🌿 **[Branching & Git Guidelines](standards/branching-git.md)**     | Branching topologies, PR size constraints, and Conventional Commits.          |
-| 🛡️ **[Coding & Security Practices](standards/coding-practices.md)** | PII masking filters, HIPAA/SOC2 design rules, and framework architectures.    |
-| 👥 **[Peer Reviews & PR Guidelines](standards/peer-reviews.md)**    | Self-review benchmarks, reviewer responsibilities, and PR templates.          |
-| 🚀 **[Release & Versioning](standards/release-management.md)**      | SemVer 2.0.0 compliance, deployment vs. release separation, and hotfix paths. |
+| Area | Standard | Primary Outcome |
+| --- | --- | --- |
+| 🌿 Git & Branching | [Branching & Git](standards/branching-git.md) | Predictable collaboration and clean history |
+| 🛡️ Code & Security | [Coding Practices](standards/coding-practices.md) | Secure, maintainable implementation |
+| 👥 Reviews | [Peer Reviews](standards/peer-reviews.md) | Consistent PR quality and shared ownership |
+| 🚀 Releases | [Release Management](standards/release-management.md) | Safer, repeatable releases and hotfixes |
 
----
+## Engineering Principles
 
-## 🛠️ Onboarding & Local Setup
+- **Clarity over cleverness** — code and decisions should be easy to understand.
+- **Security by default** — least privilege and safe data handling are baseline requirements.
+- **Automation over memory** — CI, hooks, templates, and checklists enforce repeatable quality.
+- **Small, reversible changes** — short-lived branches and focused PRs reduce risk.
+- **Evidence over assumptions** — important decisions should be supported by tests, telemetry, or documented rationale.
+- **Production ownership** — shipping includes monitoring, rollback readiness, and post-release verification.
 
-Every repository at Acadify Solution enforces formatting and linting rules locally using Git hooks and in CI workflows using GitHub Actions.
+## How to Use This Repository
 
-### Development Environment Setup
+### Engineers
 
-To configure your local environment for automated style enforcement:
-
-#### 1. Prerequisites
-
-Ensure you have the following installed on your development machine:
-
-- Node.js (LTS v20+)
-- npm (pre-packaged with Node.js) or `pnpm`
-
-#### 2. Install Development Dependencies
-
-Clone this repository and install the development packages (Prettier for formatting, Markdownlint for structure checking, and Husky for hook automation):
+Start with the four standards above, then run:
 
 ```bash
 npm install
-```
-
-#### 3. IDE Integration (Recommended)
-
-This repository contains a `.editorconfig` file that automatically configures text formatting rules (spaces vs. tabs, indentation depth, line endings) for your editor. We recommend installing the corresponding plugin if your IDE does not support EditorConfig natively:
-
-- **VS Code:** Install the `EditorConfig for VS Code` and `Prettier - Code formatter` extensions.
-- **JetBrains (IntelliJ/WebStorm):** EditorConfig support is enabled out-of-the-box.
-
----
-
-## 🤖 Validation Pipelines
-
-We run three validation layers to prevent formatting discrepancies or broken documentation structures from entering production:
-
-### 1. Editor Formatting
-
-Rules configured in `.editorconfig` and `.prettierrc` format your files automatically on save.
-
-### 2. Pre-Commit Verification (Husky)
-
-A local pre-commit hook runs `npm run lint` on staged files before allowing commits:
-
-```bash
-# Run syntax and formatting verification manually
 npm run lint
-
-# Auto-correct formatting and fixable markdown structure issues
-npm run lint:fix
 ```
 
-### 3. Continuous Integration (GitHub Actions)
+### Reviewers
 
-The workflow in `.github/workflows/lint.yml` executes formatting and syntax checks on all pull requests targeting the `main` branch. PR merges are blocked until all checks pass.
+Use the [Pull Request template](.github/pull_request_template.md) to check implementation quality, testing, security considerations, and release readiness.
 
----
+### Maintainers
 
-## 📝 Amending the Standards
+Use [GOVERNANCE.md](GOVERNANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md) to evolve the handbook without unnecessary process.
 
-We maintain our standards as living documentation. To propose updates or refinements:
+## Repository Structure
 
-1. Review the [Security Policy](SECURITY.md) to ensure no internal security procedures are leaked.
-2. Open an issue using the [Standards Amendment Template](.github/ISSUE_TEMPLATE/standards_proposal.md).
-3. Following consensus, create a branch named `refactor/standards-update-<topic>` and submit a Pull Request.
+```text
+.
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   ├── CODEOWNERS
+│   ├── pull_request_template.md
+│   └── workflows/
+├── .husky/
+├── standards/
+│   ├── branching-git.md
+│   ├── coding-practices.md
+│   ├── peer-reviews.md
+│   └── release-management.md
+├── SECURITY.md
+├── GOVERNANCE.md
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+├── package.json
+└── README.md
+```
 
----
+## Quality Gates
 
-© 2026 Acadify Solution. All rights reserved. Globally distributed team.
+**Editor → Pre-commit → CI → Human Review → Release Verification**
+
+EditorConfig and Prettier keep formatting consistent. Husky validates local changes. GitHub Actions validates pull requests. CODEOWNERS defines review ownership. Templates capture evidence and migration impact.
+
+## Contributing
+
+For meaningful changes, open a standards proposal, explain the problem and rationale, update the relevant documentation, run `npm run lint`, and submit a focused PR.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
+
+## Security
+
+Security issues must **not** be reported through public issues. See [SECURITY.md](SECURITY.md) for the reporting process.
+
+## Status
+
+This is a **living engineering standard**. Rules may evolve as the organization's architecture, product scope, and operational requirements change.
+
+**Current handbook version:** 1.1.0  
+**Last reviewed:** 2026-09-30
+
+© 2026 Acadify Solution
