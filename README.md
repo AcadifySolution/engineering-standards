@@ -103,7 +103,8 @@ This repository is relevant to searches and discussions about:
 
 The repository uses automated formatting and Markdown linting through GitHub Actions. Changes are reviewed through the repository contribution workflow, with ownership and security guidance documented separately.
 
-**Current handbook version:** 1.1.1  
+**Current handbook version:** 1.1.1
+
 **Last reviewed:** 2026-09-30
 
 ## License and reuse
