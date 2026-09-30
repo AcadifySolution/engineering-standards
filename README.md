@@ -1,98 +1,115 @@
-# Acadify Solution — Engineering Standards
+# Engineering Standards — Acadify Solution
 
-> A practical, versioned engineering handbook for building secure, maintainable, production-ready software at Acadify Solution.
+> A versioned engineering handbook for secure software development, Git workflows, code review, software releases, and AI-assisted engineering.
 
-[![Quality Checks](https://github.com/AcadifySolution/engineering-standards/actions/workflows/lint.yml/badge.svg)](https://github.com/AcadifySolution/engineering-standards/actions/workflows/lint.yml)
-[![Handbook](https://img.shields.io/badge/handbook-living-0f172a.svg)](standards/)
-[![Node](https://img.shields.io/badge/node-%3E%3D20-339933.svg)](package.json)
+## What is this repository?
 
-This repository is the shared engineering baseline for Acadify Solution. It turns engineering expectations into explicit, reviewable practices covering Git, coding, security, peer review, releases, and operational quality.
+**Acadify Solution Engineering Standards** is a practical, reusable software engineering handbook for teams that want consistent development practices across the software delivery lifecycle.
 
-**The goal is simple: make good engineering the default.**
+It covers:
 
-## At a Glance
+- Git branching, commits, pull requests, and collaboration
+- Secure and maintainable coding practices
+- Peer code review standards
+- Release management, rollback, and production verification
+- Engineering governance and contribution workflows
+- Automated Markdown and formatting quality checks
 
-| Area | Standard | Primary Outcome |
-| --- | --- | --- |
-| 🌿 Git & Branching | [Branching & Git](standards/branching-git.md) | Predictable collaboration and clean history |
-| 🛡️ Code & Security | [Coding Practices](standards/coding-practices.md) | Secure, maintainable implementation |
-| 👥 Reviews | [Peer Reviews](standards/peer-reviews.md) | Consistent PR quality and shared ownership |
-| 🚀 Releases | [Release Management](standards/release-management.md) | Safer, repeatable releases and hotfixes |
+The handbook is designed for **software engineers, backend developers, frontend developers, full-stack developers, DevOps engineers, QA engineers, technical leads, engineering managers, and teams adopting AI-assisted development workflows**.
 
-## Engineering Principles
+## Core standards
 
-- **Clarity over cleverness** — code and decisions should be easy to understand.
-- **Security by default** — least privilege and safe data handling are baseline requirements.
-- **Automation over memory** — CI, hooks, templates, and checklists enforce repeatable quality.
-- **Small, reversible changes** — short-lived branches and focused PRs reduce risk.
-- **Evidence over assumptions** — important decisions should be supported by tests, telemetry, or documented rationale.
-- **Production ownership** — shipping includes monitoring, rollback readiness, and post-release verification.
+| Topic | Guidance |
+| --- | --- |
+| Git workflow | [Branching & Git](standards/branching-git.md) |
+| Secure coding | [Coding Practices](standards/coding-practices.md) |
+| Code review | [Peer Reviews](standards/peer-reviews.md) |
+| Software releases | [Release Management](standards/release-management.md) |
+| Governance | [Engineering Standards Governance](GOVERNANCE.md) |
+| Contributions | [Contributing Guide](CONTRIBUTING.md) |
+| Security reporting | [Security Policy](SECURITY.md) |
 
-## How to Use This Repository
+## Why use engineering standards?
 
-### Engineers
+A shared engineering standard reduces ambiguity across teams. Instead of relying on individual habits, projects can use explicit rules for:
 
-Start with the four standards above, then run:
+- branch and pull-request workflows
+- coding quality and security
+- review expectations
+- release readiness
+- operational ownership
+- documentation and governance
 
-```bash
-npm install
-npm run lint
-```
+The goal is not bureaucracy. The goal is **repeatable engineering quality**.
 
-### Reviewers
+## AI-assisted software engineering
 
-Use the [Pull Request template](.github/pull_request_template.md) to check implementation quality, testing, security considerations, and release readiness.
+AI coding assistants and generative AI can accelerate implementation, but engineering teams still need human review, security controls, tests, and production verification.
 
-### Maintainers
+For AI-assisted development, this handbook provides a foundation for applying familiar engineering controls to AI-generated or AI-assisted changes:
 
-Use [GOVERNANCE.md](GOVERNANCE.md) and [CONTRIBUTING.md](CONTRIBUTING.md) to evolve the handbook without unnecessary process.
+1. Define the intended behavior.
+2. Review generated code like human-written code.
+3. Validate security, correctness, dependencies, and data handling.
+4. Run automated checks.
+5. Review the change before merge.
+6. Verify behavior after release.
 
-## Repository Structure
+This repository can serve as a starting point for extending standards around **LLM applications, RAG systems, prompt engineering, AI evaluation, model integrations, AI security, and responsible AI development**.
 
-```text
-.
-├── .github/
-│   ├── ISSUE_TEMPLATE/
-│   ├── CODEOWNERS
-│   ├── pull_request_template.md
-│   └── workflows/
-├── .husky/
-├── standards/
-│   ├── branching-git.md
-│   ├── coding-practices.md
-│   ├── peer-reviews.md
-│   └── release-management.md
-├── SECURITY.md
-├── GOVERNANCE.md
-├── CONTRIBUTING.md
-├── CHANGELOG.md
-├── package.json
-└── README.md
-```
+## Frequently asked questions
 
-## Quality Gates
+### What are software engineering standards?
 
-The quality-gate chain is:
+Software engineering standards are documented practices and rules that help teams build, review, release, and maintain software consistently.
 
-**Editor → Pre-commit → CI → Human Review → Release Verification**
+This repository provides practical standards for Git workflows, coding practices, peer review, release management, security, and engineering governance.
 
-EditorConfig and Prettier keep formatting consistent. Husky validates local changes. GitHub Actions validates pull requests. CODEOWNERS defines review ownership. Templates capture evidence and migration impact.
+### What should a software engineering handbook contain?
 
-## Contributing
+A useful engineering handbook commonly covers development workflows, coding standards, code review, security, testing, release management, incident or operational practices, and governance.
 
-For meaningful changes, open a standards proposal, explain the problem and rationale, update the relevant documentation, run `npm run lint`, and submit a focused PR.
+This repository organizes those practices into focused, versioned Markdown documents.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
+### What is a good Git branching strategy?
 
-## Security
+A good branching strategy should make collaboration predictable, keep changes reviewable, and support safe releases. The appropriate model depends on the team's deployment and release workflow.
 
-Security issues must **not** be reported through public issues. See [SECURITY.md](SECURITY.md) for the reporting process.
+See [Branching & Git](standards/branching-git.md) for the documented approach used by this handbook.
 
-## Status
+### What makes a good code review process?
 
-This is a **living engineering standard**. Rules may evolve as the organization's architecture, product scope, and operational requirements change.
+A good code review process checks correctness, maintainability, security, test coverage, compatibility, and release impact while keeping reviews focused and actionable.
+
+See [Peer Reviews](standards/peer-reviews.md).
+
+### How should AI-generated code be reviewed?
+
+AI-generated code should be treated as code that requires normal engineering verification. Reviewers should check behavior, security, dependencies, tests, data handling, and maintainability rather than assuming generated code is correct.
+
+### How should software releases be managed?
+
+A release process should define readiness checks, deployment verification, rollback options, ownership, and post-release validation.
+
+See [Release Management](standards/release-management.md).
+
+## Search topics
+
+This repository is relevant to searches and discussions about:
+
+**software engineering standards, engineering handbook, development standards, coding standards, secure coding practices, Git branching strategy, Git workflow, pull request standards, code review checklist, peer code review, release management, software development lifecycle, DevOps practices, engineering governance, engineering documentation, AI-assisted coding, AI engineering standards, LLM engineering, RAG development, prompt engineering, AI security, AI evaluation, production software engineering.**
+
+## Quality and maintenance
+
+The repository uses automated formatting and Markdown linting through GitHub Actions. Changes are reviewed through the repository contribution workflow, with ownership and security guidance documented separately.
 
 **Current handbook version:** 1.1.1  
 **Last reviewed:** 2026-09-30
 
-© 2026 Acadify Solution
+## License and reuse
+
+Before adopting these standards in another organization, review the repository's license and governance terms. Teams may adapt the practices to their architecture, regulatory environment, deployment model, and risk profile.
+
+---
+
+**Acadify Solution Engineering Standards** is maintained as a living handbook. Standards evolve as engineering practices, software architectures, security expectations, and AI-assisted development workflows change.
