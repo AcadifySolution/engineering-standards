@@ -1,7 +1,7 @@
 ---
 name: Documentation defect
 about: Report an incorrect, unclear, or broken engineering standard
-title: "docs: "
+title: 'docs: '
 labels: documentation
 ---
 
