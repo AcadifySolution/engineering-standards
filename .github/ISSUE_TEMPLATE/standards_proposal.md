@@ -1,7 +1,7 @@
 ---
 name: Standards proposal
 about: Propose a new engineering rule or change to an existing standard
-title: "standards: "
+title: 'standards: '
 labels: documentation
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: Engineering improvement
 about: Suggest an improvement to the engineering handbook or tooling
-title: "enhancement: "
+title: 'enhancement: '
 labels: enhancement
 ---
 

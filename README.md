@@ -19,15 +19,15 @@ The handbook is designed for **software engineers, backend developers, frontend 
 
 ## Core standards
 
-| Topic | Guidance |
-| --- | --- |
-| Git workflow | [Branching & Git](standards/branching-git.md) |
-| Secure coding | [Coding Practices](standards/coding-practices.md) |
-| Code review | [Peer Reviews](standards/peer-reviews.md) |
-| Software releases | [Release Management](standards/release-management.md) |
-| Governance | [Engineering Standards Governance](GOVERNANCE.md) |
-| Contributions | [Contributing Guide](CONTRIBUTING.md) |
-| Security reporting | [Security Policy](SECURITY.md) |
+| Topic              | Guidance                                              |
+| ------------------ | ----------------------------------------------------- |
+| Git workflow       | [Branching & Git](standards/branching-git.md)         |
+| Secure coding      | [Coding Practices](standards/coding-practices.md)     |
+| Code review        | [Peer Reviews](standards/peer-reviews.md)             |
+| Software releases  | [Release Management](standards/release-management.md) |
+| Governance         | [Engineering Standards Governance](GOVERNANCE.md)     |
+| Contributions      | [Contributing Guide](CONTRIBUTING.md)                 |
+| Security reporting | [Security Policy](SECURITY.md)                        |
 
 ## Why use engineering standards?
 
@@ -114,3 +114,8 @@ Before adopting these standards in another organization, review the repository's
 ---
 
 **Acadify Solution Engineering Standards** is maintained as a living handbook. Standards evolve as engineering practices, software architectures, security expectations, and AI-assisted development workflows change.
+
+## Repository maintenance
+
+See [the public repository maintenance record](MAINTENANCE.md) for the latest scoped
+review, validation evidence, unresolved dependency findings, and repeatable workflow.
