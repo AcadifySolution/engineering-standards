@@ -1,6 +1,15 @@
-# Engineering Standards — Acadify Solution
+# Software Engineering Standards — Git, Code Review, and Releases
 
 > A versioned engineering handbook for secure software development, Git workflows, code review, software releases, and AI-assisted engineering.
+
+## Choose a starting point
+
+- Set up a team workflow with [branching and Git guidance](standards/branching-git.md).
+- Review a pull request with the [peer review checklist](standards/peer-reviews.md).
+- Prepare a release using [release management guidance](standards/release-management.md).
+
+See [DISCOVERY.md](DISCOVERY.md) for a practical guide to documenting public
+projects, sharing reproducible examples, and measuring discovery honestly.
 
 ## What is this repository?
 
@@ -92,12 +101,6 @@ AI-generated code should be treated as code that requires normal engineering ver
 A release process should define readiness checks, deployment verification, rollback options, ownership, and post-release validation.
 
 See [Release Management](standards/release-management.md).
-
-## Search topics
-
-This repository is relevant to searches and discussions about:
-
-**software engineering standards, engineering handbook, development standards, coding standards, secure coding practices, Git branching strategy, Git workflow, pull request standards, code review checklist, peer code review, release management, software development lifecycle, DevOps practices, engineering governance, engineering documentation, AI-assisted coding, AI engineering standards, LLM engineering, RAG development, prompt engineering, AI security, AI evaluation, production software engineering.**
 
 ## Quality and maintenance
 
